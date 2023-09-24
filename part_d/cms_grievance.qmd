@@ -1,0 +1,292 @@
+```{r}
+library(data.table)
+```
+
+```{r}
+the_file  <- "cms_grievance_ALL_decisions_data.csv"   # 9/2022 - 9/2023
+x  <- fread(the_file)
+dim(x)  
+# [1] 34851    10
+
+names(x)
+#  [1] "decision_number"        "part"                  
+#  [3] "decision_date"          "decision_date_sortable"
+#  [5] "decision"               "appeal_type"           
+#  [7] "_condition"             "drug"                  
+#  [9] "decision_rationale"     "coverage_rules"        
+```
+
+### decision_rational (paragraph, very large)
+```{r}
+if (F) x$decision_rationale
+head(x$decision_rationale, 3)
+```
+
+```{r}
+library(knitr)
+library(data.table)
+library(kableExtra)
+options(knitr.table.format = "html") 
+
+x[, .(decision_number, decision_rationale)][1:10] |>
+  kable(table.attr = 'data-quarto-disable-processing="true"') 
+```
+```{r}
+knitr::knit_exit()
+
+```
+
+### all are part d
+```{r}
+head(x$part)
+table(x$part)
+
+head(x$decision_date)
+head(x$decision_date_sortable)   # YYYYmmdd
+```
+
+### decision
+```{r}
+table(x$decision)
+# 
+#           Favorable Partially Favorable         Unfavorable 
+#                2031                  69               32751 
+
+y = x[, .N, by=decision]
+png("cms_decisions.png")
+barplot(y$N, names.arg=y$decision, main="CMS Decisions")
+dev.off()
+```
+
+### appeal_type; mostly drug
+```{r}
+table(x$appeal_type)
+```
+### _condition (1 word, can be sentence)
+```{r}
+
+head(x[, c(1,7)], n=20)
+```
+
+### top 16 drugs (in grievances)
+```{r}
+unique(x$drug)  # 4289 unique drugs
+y  <- table(x$drug)
+
+is.atomic(y)
+typeof(y)
+y
+
+dt  <- data.table(y)
+dt[order(desc(N))][1:10, ]
+dt[order(N)][1:10, ]
+
+dt[order(N)][N>20] # 344
+dt[order(N)][N>50] # 121
+dt[order(N)][N>100] # 49 drugs
+
+t16 = dt[order(N)][N>200] # 16 drugs
+t16
+
+barplot(t16$N, names.arg = t16$V1)
+hist(t16$N)
+
+
+```
+
+### decision_rational (paragraph, very large)
+```{r}
+if (F) x$decision_rationale
+head(x$decision_rationale, 3)
+
+```
+
+##  Kable, Bootstrap    
+---
+output: html_document
+---
+TAGS: quarto, kable, kableExtra, width of HTML tables
+
+## wide tables?
+REF: https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html
+REF: https://github.com/quarto-dev/quarto-cli/issues/5737
+
+**turn off quarto processing**
+
+
+```
+  df |> kable(table.attr = 'data-quarto-disable-processing="true"') 
+```
+
+### kableExtra + bootstrap 
+```{r}
+library(knitr)
+library(data.table)
+library(kableExtra)
+options(knitr.table.format = "html") 
+```
+### too wide!
+```{r}
+df <- mtcars[1:5, 1:6]
+kbl(df)
+```
+
+### fix: add quarto disable !
+```{r}
+df |>
+  kable(table.attr = 'data-quarto-disable-processing="true"') 
+
+```
+```{r}
+df %>% 
+  kable(table.attr = 'data-quarto-disable-processing="true"') %>% 
+  kableExtra::kable_styling(bootstrap_options = c("basic", "hover"), full_width = FALSE)
+```
+
+```{r}
+head(iris) %>% 
+  kable(table.attr = 'data-quarto-disable-processing="true"') %>% 
+  kableExtra::kable_styling(bootstrap_options = c("basic", "hover"), full_width = FALSE)
+```
+```{r}
+df %>%
+  kbl() %>%
+
+  kable_paper("hover", full_width = F)
+```
+```{r}
+
+
+  df %>%
+  kbl() %>%
+  kable_classic_2(full_width = F)
+
+```
+```{r, echo=T}
+library(kableExtra)
+df <- data.frame(
+  Operator = c("`==`", "`!=`", "`>`", "`<`", "`>=`", "`<=`"),
+  Interpretation = c("Equal to", "Not equal to", "Greater than", "Less than", "Greater than or equal to", "Less than or equal to")
+)
+
+#df %>% kbl() %>% kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
+
+df %>% 
+  kbl() %>% 
+  kable_classic(full_width=F, html_font="Cambria") %>% 
+  row_spec(0, bold=TRUE)
+```
+:::: {.columns}
+::: {.column width="70%"}
+
+| fruit  | price  |
+|--------|--------|
+| apple  | 2.05   |
+| pear   | 1.37   |
+| orange | 3.09   |
+
+: Table 1
+
+:::
+::::
+
+
+```{css, echo=FALSE}
+.center-table table {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+```
+
+::: {.center-table}
+
+| fruit  | price  |
+|--------|--------|
+| apple  | 2.05   |
+| pear   | 1.37   |
+| orange | 3.09   |
+
+: Table 2
+
+:::
+
+```{r}
+knitr::knit_exit()
+```
+```{r}
+
+
+kbl(df) %>%
+  kable_paper(bootstrap_options = "striped", full_width = F) 
+```
+
+
+```{r attr.source="style='display:inline-block;'", collapse=TRUE}
+1:10  # a sequence from 1 to 10
+10:1  # in the reverse order
+```
+https://bookdown.org/yihui/rmarkdown-cookbook/multi-column.html
+
+
+:::: {style="display: flex;"}
+
+::: {}
+Here is the **first** Div.
+
+```{r}
+str(iris)
+```
+:::
+
+::: {}
+And this block will be put on the right:
+
+```{r}
+plot(iris[, -5])
+```
+:::
+
+::::
+
+```{r}
+library(knitr)
+#| column: page
+#| label: tbl-cars
+#| tbl-cap: "Cars"
+#| tbl-colwidths: [10,10]
+
+knitr::kable(head(cars))
+```
+```{r}
+
+data.table's `anti-join` can be a charm:
+
+Find the missing letter!
+
+t2  = data.table(x=letters[1:10])
+t1  = data.table(x=letters[1:11])
+
+t1         t2
+
+ x         x
+ ==       ==
+ a         a
+ b         b
+ c         c
+ d         d
+ e         e
+ f         f
+ g         g
+ h         h
+ i         i
+ j         j
+ k
+
+
+
+t1[!t2, on=.(x) ]
+#    
+# 1: k
+```
+
