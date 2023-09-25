@@ -1,28 +1,33 @@
-
+/home/jim/code/stats_project/gagolewski_ml/301_gagolewski_create_training_sets_KNN.qmd
 
 ----------------------------------------------------------------------
-PURPOSE:   Given a df, select a random sample of rows (for train/test)
-REF:   
-https://archive.ics.uci.edu/dataset/186/wine+quality
-Gagolewski:  KNN
+PURPOSE:	For wines db, create classification model for alcholol level (0 or 1)
+
+REF:   https://archive.ics.uci.edu/dataset/186/wine+quality
+Gagolewski:  KNN, chapter 3, classification
 https://lmlcr.gagolewski.com/classification-with-k-nearest-neighbours.html#k-nearest-neighbour-classifier
 ----------------------------------------------------------------------
 
-### Note:  separator is ";"
+Step 1:   Given a df, select a random sample of rows (for train/test)
+
+
+### Read wines db (Note:  separator is ";")
 ```{r}
 wines  <- read.csv("data/winequality-white.csv", comment.char="#", sep=";")
 dim(wines)
 (n <- nrow(wines)) # number of samples
+# [1] 4898
 
 wines  <- as.tibble(wines)
 head(wines)
+
 names(wines)
 #  [1] "fixed.acidity"        "volatile.acidity"     "citric.acid"         
 #  [4] "residual.sugar"       "chlorides"            "free.sulfur.dioxide" 
 #  [7] "total.sulfur.dioxide" "density"              "pH"                  
 # [10] "sulphates"            "alcohol"              "quality"             
 ```
-### Goal:  Model 'alcohol' as 0 or 1 (if alchol > 12%)
+### Cleanup wines db: Set 'alcohol' as 0 or 1 (if alchol > 12%)
 ```{r}
 wines[1:2, c(11)]
 wines[1:20, "alcohol"]
@@ -36,8 +41,6 @@ table(Y)
 #    0    1 
 # 4085  813 
 ```
-
-
 ### Random indices
 ```{r}
 set.seed(123) # reproducibility matters
@@ -51,11 +54,28 @@ head(random_indices) # preview
 
 ### For training, only first 10 columns; take 60% of rows (random)
 ```{r}
-X  <-  wines[, 1:10]
+  X  <-  wines[, 1:10]
+  dim(X)
+  # [1] 4898   10
 
 #   60% of rows
-X_train  <- X[floor(random_indices*0.6),]      # lowest int 
-dim(X_train)
+# Example
+  random_indices[1:10]
+#  [1] 2157  704 3145 2633 2815 4095  204 4149 4440 2947
+
+  floor(random_indices[1:10]*0.6) # returns indices by 0.60
+#  [1] 1294  422 1887 1579 1689 2457  122 2489 2664 1768
+
+# first 60% of the indices (they are arranged randomly)
+# will constitute the train sample:
+  train_indices <- random_indices[1:floor(n*0.6)] #2938 
+  X_train <- X[train_indices,]
+  Y_train <- Y[train_indices]
+
+# the remaining indices (40%) go to the test sample:
+  X_test  <- X[-train_indices,]
+  Y_test  <- Y[-train_indices]
+  X_train  <- X[floor(random_indices*0.6),]      # lowest int 
 ```
 
 
