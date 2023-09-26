@@ -1,4 +1,3 @@
-
 ---
 title:  ""
 output: 
@@ -17,6 +16,7 @@ geometry: margin=0.5in,top=0.25in
 params:
   date: !r lubridate::today()
 ---
+TAGS:   solve(),  diag(), regression, lm
 
 ### PURPOSE:  Simple regression, well annotated in stackexchange. 
   *  REF:   (cross) stats.stackexchange.com/a/44841/81618

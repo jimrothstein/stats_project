@@ -1,0 +1,51 @@
+
+## Example 2 (Cheese), uses tidyverse
+<https://bookdown.org/jgscott/DSGI/grouped-data.html#example-2-cheese-1>
+$$
+\delta
+$$
+Regression, include a dummy variable (disp = display), to predict sales
+
+```{r}
+library(mosaic)
+library(ggplot2)
+library(dplyr)
+
+kroger  <- read.csv("../data/kroger.csv")
+head(kroger)
+str(kroger)
+# 'data.frame':	706 obs. of  4 variables:
+#  $ city : chr  "Houston" "Detroit" "Dallas" "Atlanta" ...
+#  $ price: num  2.48 2.75 2.92 2.89 2.69 2.67 2.88 2.7 2.65 2.65 ...
+#  $ vol  : int  6834 5505 3201 4099 5568 4134 2669 2403 3352 1613 ...
+#  $ disp : chr  "yes" "no" "no" "yes" ...
+# NULL
+```
+```{r}
+kroger_dallas  <- kroger |> dplyr::filter(city == "Dallas")
+ggplot(kroger_dallas) + 
+  geom_jitter(aes(x = disp, y = vol), width=0.1) + 
+  stat_summary(aes(x = disp, y = vol), fun='mean', color='red', size=1)
+
+# sales, with/out display
+  mean(vol ~ disp, data=kroger_dallas)
+  #   no  yes 
+  # 2341 5577 
+
+# mutuate to use dummy 1,0 variables
+kroger_dallas = kroger_dallas %>%
+  mutate(dispyes = ifelse(disp == 'yes', 1, 0))
+
+# model
+model1_vol = lm(vol ~ dispyes, data=kroger_dallas)
+coef(model1_vol) %>%
+  round(0)
+
+```
+
+$$
+vol = \beta_{0} + \beta_{1}dispyes + \epsilon 
+$$
+  
+
+

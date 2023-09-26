@@ -3028,18 +3028,25 @@ vertical-align: -.125em;
   <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#dummy-variables-are-0-1-include-or-not-include" id="toc-dummy-variables-are-0-1-include-or-not-include" class="nav-link active" data-scroll-target="#dummy-variables-are-0-1-include-or-not-include"><span class="header-section-number">0.1</span> Dummy variables are 0, 1 (include or not include)</a></li>
-  <li><a href="#coef" id="toc-coef" class="nav-link" data-scroll-target="#coef"><span class="header-section-number">0.2</span> coef</a></li>
+<li><a href="#coef" id="toc-coef" class="nav-link active" data-scroll-target="#coef"><span class="header-section-number">0.1</span> coef</a></li>
   </ul><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="14_multiple_dummy.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
-<main class="content" id="quarto-document-content"><div class="cell">
+<main class="content" id="quarto-document-content"><p>Dummy variables are 0, 1 (include or not include) and represent <strong>categorical</strong> variables against baseline (when 0)</p>
+<p>kronecker delta</p>
+<p><span class="math display">
+\delta
+</span></p>
+<div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com">data.table</a></span><span class="op">)</span></span>
 <span><span class="va">rxntime</span> <span class="op">=</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html">fread</a></span><span class="op">(</span><span class="st">&quot;rxntime.csv&quot;</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="dummy-variables-are-0-1-include-or-not-include" class="level3" data-number="0.1"><h3 data-number="0.1" class="anchored" data-anchor-id="dummy-variables-are-0-1-include-or-not-include">
-<span class="header-section-number">0.1</span> Dummy variables are 0, 1 (include or not include)</h3>
 <p><span class="math display">
+\delta =
+</span> <span class="math display">
 y = \beta_{0} + \beta_{1}x_{1} + \beta_{2}x_{2} + \epsilon
+</span></p>
+<p><span class="math display">
+y = \beta_{0} + \beta_{1} \delta_{1} + \beta_{2}\delta + \epsilon
 </span></p>
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rxntime</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="va">PictureTarget.RT</span>, <span class="va">FarAway</span>, <span class="va">Littered</span><span class="op">)</span><span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -3058,8 +3065,8 @@ y = \beta_{0} + \beta_{1}x_{1} + \beta_{2}x_{2} + \epsilon
 1920:              366       1        1</code></pre>
 </div>
 </div>
-</section><section id="coef" class="level3" data-number="0.2"><h3 data-number="0.2" class="anchored" data-anchor-id="coef">
-<span class="header-section-number">0.2</span> coef</h3>
+<section id="coef" class="level3" data-number="0.1"><h3 data-number="0.1" class="anchored" data-anchor-id="coef">
+<span class="header-section-number">0.1</span> coef</h3>
 <div class="cell">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">games_model1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">PictureTarget.RT</span> <span class="op">~</span> <span class="va">FarAway</span> <span class="op">+</span> <span class="va">Littered</span>, data<span class="op">=</span><span class="va">rxntime</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">games_model1</span><span class="op">)</span> <span class="op">|&gt;</span></span>

@@ -1,12 +1,28 @@
+
+Dummy variables are 0, 1 (include or not include) and represent **categorical** variables against baseline (when 0)
+
+kronecker delta
+
+$$
+\delta
+$$
+
 ```{r}
 library(data.table)
 rxntime = fread("rxntime.csv")
 ```
 
-### Dummy variables are 0, 1 (include or not include)
+$$
+\delta = 
+$$
 $$
 y = \beta_{0} + \beta_{1}x_{1} + \beta_{2}x_{2} + \epsilon 
 $$
+
+$$
+y = \beta_{0} + \beta_{1} \delta_{1} + \beta_{2}\delta + \epsilon 
+$$
+
 ```{r}
 rxntime[, .(PictureTarget.RT, FarAway, Littered)]
 ```
@@ -28,5 +44,4 @@ $$
 #| include: false
 summary(games_model1)
 ```
-
 
