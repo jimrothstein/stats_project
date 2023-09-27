@@ -1,15 +1,24 @@
+PURPOSE:  Regression, include a dummy variable (disp = display), to predict sales
 
 ## Example 2 (Cheese), uses tidyverse
 <https://bookdown.org/jgscott/DSGI/grouped-data.html#example-2-cheese-1>
+
 $$
 \delta
 $$
-Regression, include a dummy variable (disp = display), to predict sales
+
+
+### Kroger Cheese Sales, by store; with and without a display
+<!-- {{{ -->
 
 ```{r}
+suppressMessages(
+                 {
 library(mosaic)
 library(ggplot2)
 library(dplyr)
+                 }
+)
 
 kroger  <- read.csv("../data/kroger.csv")
 head(kroger)
@@ -21,6 +30,10 @@ str(kroger)
 #  $ disp : chr  "yes" "no" "no" "yes" ...
 # NULL
 ```
+<!-- }}} -->
+
+### Plot, Prepare data
+<!-- {{{ -->
 ```{r}
 kroger_dallas  <- kroger |> dplyr::filter(city == "Dallas")
 ggplot(kroger_dallas) + 
@@ -36,16 +49,45 @@ ggplot(kroger_dallas) +
 kroger_dallas = kroger_dallas %>%
   mutate(dispyes = ifelse(disp == 'yes', 1, 0))
 
-# model
+```
+<!-- }}} -->
+
+### The model
+
+dispyes takes value 0, 1
+$$
+vol = \beta_{0} + \beta_{1}dispyes + \epsilon 
+$$
+
+
+$$
+vol = 2341 + 3236*dispyes
+$$
+
+<!-- {{{ -->
+
+```{r}
+
 model1_vol = lm(vol ~ dispyes, data=kroger_dallas)
 coef(model1_vol) %>%
   round(0)
 
 ```
+<!-- }}} -->
 
-$$
-vol = \beta_{0} + \beta_{1}dispyes + \epsilon 
-$$
+### Note:  Let R create dummy variables
+
+```{r}
+kroger_dallas |> head()
+# remove 0,1 column just added
+kroger_dallas[, -5] |> head()
+
+## get same result
+model2 = lm(vol ~ disp, data=kroger_dallas)
+coef(model2) |> round(0)
+```
+
+
   
 
 
