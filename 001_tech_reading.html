@@ -68,6 +68,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="001_tech_reading_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="001_tech_reading_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -138,13 +140,17 @@ s/https.*/[&]()/g
 <li><a href="https://lmlcr.gagolewski.com/">Gagolewski Lightweight ML with R</a> iPad</li>
 <li>Higgens “Practical R Info?”</li>
 <li>Huntington “The Effect Book” <a href="https://www.theeffectbook.net/index.html" class="uri">https://www.theeffectbook.net/index.html</a></li>
+<li>Lindholm, “Machine Learning: A first course for engineers” PDF more math <a href="http://smlbook.org/" class="uri">http://smlbook.org/</a></li>
 <li>Matloff (Prob book) <a href="https://github.com/matloff/probstatbook/blob/master/ProbStatBookW21.pdf" class="uri">https://github.com/matloff/probstatbook/blob/master/ProbStatBookW21.pdf</a><br>
 SEE 15.2 for logistic</li>
 <li>mcelreath: <a href="https://github.com/rmcelreath/stat_rethinking_2022" class="uri">https://github.com/rmcelreath/stat_rethinking_2022</a> (videos)</li>
 <li>Molnar <a href="https://christophm.github.io/interpretable-ml-book/" class="uri">https://christophm.github.io/interpretable-ml-book/</a> Ch 5.2 logistical regression (explanations!)</li>
+<li>Random Services <a href="https://www.randomservices.org/random/dist/Transformations.html" class="uri">https://www.randomservices.org/random/dist/Transformations.html</a></li>
+<li>Siegrist: <a href="https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05%3A_Special_Distributions/5.29%3A_The_Logistic_Distribution" class="uri">https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05%3A_Special_Distributions/5.29%3A_The_Logistic_Distribution</a></li>
 <li>Thomas, Math for ML … good lin alg, but quickly gets advanced. <a href="https://gwthomas.github.io/docs/math4ml.pdf" class="uri">https://gwthomas.github.io/docs/math4ml.pdf</a></li>
 <li>UCLA: Mixed Models - intro: <a href="https://stats.oarc.ucla.edu/other/mult-pkg/introduction-to-linear-mixed-models/" class="uri">https://stats.oarc.ucla.edu/other/mult-pkg/introduction-to-linear-mixed-models/</a></li>
 <li>Varma: Deep Learning \url{ #### Bayes</li>
+<li>Vasishth: <a href="https://vasishth.github.io/bayescogsci/book/ch-reg.html#sec-logistic" class="uri">https://vasishth.github.io/bayescogsci/book/ch-reg.html#sec-logistic</a></li>
 <li>Wiki: <a href="https://en.wikipedia.org/wiki/Generalized_linear_model#Binary_data" class="uri">https://en.wikipedia.org/wiki/Generalized_linear_model#Binary_data</a>, not easy but through</li>
 <li>SciLearn</li>
 <li><a href="https://bookdown.org/jgscott/DSGI/">Scott, DS with R, Gentle Intro</a></li>
@@ -170,6 +176,31 @@ SEE 15.2 for logistic</li>
 <li>Rafael genomics - Chapter 4 matrix<br>
 </li>
 <li>Gallier, advanced linear alg <a href="https://www.seas.upenn.edu/~cis5150/linalg-I.pdf" class="uri">https://www.seas.upenn.edu/~cis5150/linalg-I.pdf</a></li>
+</ul>
+</section>
+<section id="logistic-regression-binary-response" class="level4">
+<h4 class="anchored" data-anchor-id="logistic-regression-binary-response">Logistic Regression (binary response)</h4>
+<p><span class="math display">\[  
+\Pr(y) \sim \binom{n}{y}\theta^y(1-\theta)^{n-y}
+\]</span> <span class="math display">\[
+\Pr(y=1)=\theta=\text{logit}^{-1}(\beta_0+\beta_1x_1+\beta_2x_2+...+\beta_7x_7)
+\]</span></p>
+<ul>
+<li>Prerequisite: Ease going from quantile function to CDF, and back.</li>
+<li>Difference: binomial variable, y, =1 and Pr(Y=1)</li>
+<li>Difference: p(y=m | x) conditional class probability vs p(y | x), where m repsents a ‘class’, given x</li>
+<li>Model y vs model log-odds (y)</li>
+<li>Reason for modeling mean</li>
+<li>Transformations of RV</li>
+</ul>
+<p>SEE :</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Quantile_function" class="uri">https://en.wikipedia.org/wiki/Quantile_function</a></li>
+<li>Vasishth,</li>
+<li>Interpretable ML, Chapter 5.2</li>
+<li><a href="https://stats.stackexchange.com/questions/374452/family-of-glm-represents-the-distribution-of-the-response-variable-or-residuals/374461#374461" class="uri">https://stats.stackexchange.com/questions/374452/family-of-glm-represents-the-distribution-of-the-response-variable-or-residuals/374461#374461</a></li>
+<li><a href="https://www.theanalysisfactor.com/link-functions-and-errors-in-logistic-regression/" class="uri">https://www.theanalysisfactor.com/link-functions-and-errors-in-logistic-regression/</a></li>
+<li><a href="https://www.randomservices.org/random/dist/Transformations.html" class="uri">https://www.randomservices.org/random/dist/Transformations.html</a></li>
 </ul>
 </section>
 </section>
