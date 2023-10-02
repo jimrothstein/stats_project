@@ -4,8 +4,19 @@
 
 ### People
 
+-   Lee Bliven
+-   https://www.linkedin.com/in/mac-mclean-030b5b10/ (LI 2023-10-02) 
+
 Aging With Justice, ->  CommonWealth Fund, Center for Medicare Advocacy, KFF 
 - sent: https://www.linkedin.com/in/reshmamehta/
+
+#### CFA: 
+DLipschutz@medicareadvocacy.org (regular email)  
+"With our enormous caseload of administrative appeals, the Center has a unique database that allows us to identify patterns of improper Medicare denials and barriers to a fair appeal process. "
+(Is this good use of time?? hunting for people?)
+
+#### KFF:
+begin:  <https://www.kff.org/private-insurance/issue-brief/claims-denials-and-appeals-in-aca-marketplace-plans/>
 
 ### Notes
 
