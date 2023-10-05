@@ -11,8 +11,20 @@ Aging With Justice, ->  CommonWealth Fund, Center for Medicare Advocacy, KFF
 - sent: https://www.linkedin.com/in/reshmamehta/
 
 #### CFA: 
-DLipschutz@medicareadvocacy.org (regular email)  
+DLipschutz@medicareadvocacy.org (regular email)  -  good RESPONSE!
 "With our enormous caseload of administrative appeals, the Center has a unique database that allows us to identify patterns of improper Medicare denials and barriers to a fair appeal process. "
+```
+**Tricia Neuman**, KFF (formerly Kaiser Family Foundation) <site:https://www.kff.org "Tricia neuman"> <https://bityl.co/LWGd>
+**Gretchen Jacobson**, Commonwealth Fund (sent LI)
+**Jack Hoadley**, Georgetown
+
+Our colleagues at the Medicare Rights Center have generally looked more closely at Part D issues than we have – you can ask *Julie Carter* (LI) there.
+
+re:  Part D - DENIALS - data
+David Lipshultz suggested I contact you because I am examining CMS data for Part D Denials  (<https://bityl.co/LQDZ>) and hope to talk to others doing same or similar.   I write software; do no policy; but do want data to be useful.   Thx for any thoughts and time. 
+```
+
+ avid's reponse !
 (Is this good use of time?? hunting for people?)
 
 #### KFF:
