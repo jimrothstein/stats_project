@@ -15,6 +15,7 @@ DLipschutz@medicareadvocacy.org (regular email)  -  good RESPONSE!
 "With our enormous caseload of administrative appeals, the Center has a unique database that allows us to identify patterns of improper Medicare denials and barriers to a fair appeal process. "
 ```
 **Tricia Neuman**, KFF (formerly Kaiser Family Foundation) <site:https://www.kff.org "Tricia neuman"> <https://bityl.co/LWGd>
+also Jaffe : https://kffhealthnews.org/news/article/biden-administration-software-algorithms-medicare-advantage/
 **Gretchen Jacobson**, Commonwealth Fund (sent LI)
 **Jack Hoadley**, Georgetown
 
