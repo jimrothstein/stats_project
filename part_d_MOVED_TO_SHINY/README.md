@@ -19,21 +19,22 @@ also Jaffe : https://kffhealthnews.org/news/article/biden-administration-softwar
 **Gretchen Jacobson**, Commonwealth Fund (sent LI)
 **Jack Hoadley**, Georgetown
 
-Our colleagues at the Medicare Rights Center have generally looked more closely at Part D issues than we have – you can ask *Julie Carter* (LI) there.
+Our colleagues at the **Medicare Rights Center** have generally looked more closely at Part D issues than we have – you can ask *Julie Carter* (LI) there.
+(Julie Carter - very helpful - they have telephone log of calls for Medicare assistance and write annual report re: problems they found and sent to CMS):w
+REF:  jcarter@medicarerights.org; 
+https://www.medicarerights.org/medicare-watch/2023/10/05/medicare-rights-helpline-trends-report-shows-increasing-need-for-help-affording-care
 
 re:  Part D - DENIALS - data
 David Lipshultz suggested I contact you because I am examining CMS data for Part D Denials  (<https://bityl.co/LQDZ>) and hope to talk to others doing same or similar.   I write software; do no policy; but do want data to be useful.   Thx for any thoughts and time. 
 ```
 
- avid's reponse !
+David's reponse !
 (Is this good use of time?? hunting for people?)
 
 #### KFF:
 begin:  <https://www.kff.org/private-insurance/issue-brief/claims-denials-and-appeals-in-aca-marketplace-plans/>
 
 ### Notes
-
-
 
 re: DATA:  Medicare Part D - Appeals 
 Dear Jen:

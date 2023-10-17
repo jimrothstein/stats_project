@@ -28,12 +28,9 @@ library(data.table)
 library(kableExtra)
 options(knitr.table.format = "html") 
 
+# table.attr is what allows table width to shrink
 x[, .(decision_number, decision_rationale)][1:10] |>
   kable(table.attr = 'data-quarto-disable-processing="true"') 
-```
-```{r}
-knitr::knit_exit()
-
 ```
 
 ### all are part d
@@ -45,6 +42,10 @@ head(x$decision_date)
 head(x$decision_date_sortable)   # YYYYmmdd
 ```
 
+```{r}
+knitr::knit_exit()
+
+```
 ### decision
 ```{r}
 table(x$decision)
