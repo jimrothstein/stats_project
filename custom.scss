@@ -24,12 +24,13 @@ $code-block-font-size: 0.4em;
 $code-block-bg: $off-white;
 
 /*--    Works  --*/
-//$body-bg:            $baby-blue;
+$body-bg:            $baby-blue;
 //$body-bg:            $teal;   #  (too dark)
-$body-bg:            $off-white;
+//$body-bg:            $green;
 
 
 /*-- scss:rules --*/
 .postbox {
   background-color: lightgrey;
+  font-size:	    2.1em;   // works, 'bigger'
 }
