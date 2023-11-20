@@ -1,0 +1,90 @@
+---
+title: skeleton.qmd
+date: last-modified
+# Quarto requires title, if want date to appear
+---
+
+  ### Dalpiaz - Chapter 8 (generate data, from Chapter 7)
+```{r}
+library(mlbench)
+library(palmerpenguins)
+library(tidyverse)
+```
+
+```{r}
+
+# set seed
+set.seed(42)
+
+# generate data (1000 x 3)
+sim_data = as_tibble(mlbench.2dnormals(n = 1000, cl = 3, sd = 1.3))
+
+# tst-trn split data
+trn_idx = sample(nrow(sim_data), size = 0.8 * nrow(sim_data))
+trn = sim_data[trn_idx, ]
+tst = sim_data[-trn_idx, ]
+
+# est-val split data
+est_idx = sample(nrow(trn), size = 0.8 * nrow(trn))
+est = trn[est_idx, ]                   #640 x 3 
+val = trn[-est_idx, ]                  #160 x 3 
+
+# check data
+trn
+```
+
+### plot
+```{r}
+plot(x.2 ~ x.1, data = trn, col = classes, pch = 20, cex = 1.5)
+grid()
+```
+
+
+### helper function to calculate misclassification
+```{r}
+calc_misclass = function(actual, predicted) {
+  mean(actual != predicted)
+}
+
+# calculate test metric
+mod_knn = knn3(classes ~ ., data = trn, k = 10)
+calc_misclass(
+  actual = tst$classes,
+  predicted = predict(mod_knn, tst, type = "class")
+)
+```
+
+### simulate
+```{r}
+library(caret)
+# tune knn model ###############################################################
+
+# set seed
+set.seed(42)
+
+# k values to consider
+k_val = seq(1, 101, by = 2)
+
+# function to fit knn to est for various k
+fit_knn_to_est = function(k) {
+  knn3(classes ~ ., data = est, k = k)
+}
+
+# fit models
+knn_mods = lapply(k_val, fit_knn_to_est)
+
+# make predictions
+knn_preds = lapply(knn_mods, predict, val, type = "class")
+
+# calculate validation misclass
+knn_misclass = sapply(knn_preds, calc_misclass, actual = val$classes)
+
+# plot results
+plot(k_val, knn_misclass, pch = 20, type = "b")
+grid()
+```
+
+
+
+
+vim:linebreak:nospell:nowrap:cul tw=78 fo=tqlnrc foldcolumn=1 cc=+1 filetype=r

@@ -37,7 +37,7 @@ points <-
   labelled_points %>% 
   select(-cluster)
 
-kclust <- kmeans(points, centers = 3)
+kclust <- stats::kmeans(points, centers = 3)
 kclust
 #> K-means clustering with 3 clusters of sizes 148, 51, 101
 #> 
