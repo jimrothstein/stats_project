@@ -2,7 +2,7 @@
 title: skeleton.qmd
 date: last-modified
 # Quarto requires title, if want date to appear
-TAGS:  caret, knn3, 
+# TAGS:  caret, knn3, 
 ---
 ### https://statisticallearning.org/nonparametric-classification.html
   ### Dalpiaz - Chapter 7 (generate data, from Chapter 7)
@@ -12,6 +12,7 @@ library(palmerpenguins)
 library(tidyverse)
 library(gridExtra)
 library(caret)
+library(data.table)
 ```
 
 ### generate training/testing data
@@ -19,28 +20,35 @@ library(caret)
 # set seed
 set.seed(42)
 
-# generate data 1000 rows, 2 cols, 3 classes 
-sim_data = as_tibble(mlbench.2dnormals(n = 1000, cl = 3, sd = 1.3))
-head(sim_data)
+
+classes = 2
+sd = 0.1
+x <- rnorm(n=100, mean=0, sd=sd) 
+y <- rnorm(n=100, mean=0, sd=sd) 
+pos  <- 0.25
+
+data1  <- data.table(x=x + 0.25 , y=y + 0.25, classes = c(1))
+data2  <- data.table(x=x + 3*pos, y=y + 3*pos, classes = c(2))
+data  <- data.table::rbindlist(list(data1, data2))
+plot(y  ~ x, data = data, col = classes, pch = 20, cex = 1.5)
+data[, .(.I, x),][I == 2]
+
 
 # train-test | tst-trn split data
-trn_idx = sample(nrow(sim_data), size = 0.8 * nrow(sim_data))
+trn_idx = sample(nrow(data), size = 0.8 * nrow(data))
+trn_idx
 length(trn_idx)                        #800 
-trn = sim_data[trn_idx, ]
-tst = sim_data[-trn_idx, ]
+## .I numbers and adds column I
+trn  <-  data[, .(.I, x, y, classes)][I %in% trn_idx]
+tst  <- data[, .(.I, x, y, classes)][!I %in% trn_idx]
 
-# est-val split data
-est_idx = sample(nrow(trn), size = 0.8 * nrow(trn))
-length(est_idx)                        #640 
-est = trn[est_idx, ]                   #640 x 3 
-val = trn[-est_idx, ]                  #160 x 3 
+## drop the I  (NEED)
+trn  <-  trn[, .(x,y, classes)]
 
-# check data
-trn
-trn |> dim() 
+
 ```
 
-```{r}
+```{r, eval=F}
 # visualize data
 
 p1 = ggplot(data = trn, aes(x = x.1)) +
@@ -65,12 +73,15 @@ gridExtra::grid.arrange(p1, p2, p3, p4)
 #
 ```{r}
 # fit knn model
-mod_knn = knn3(classes ~ ., data = trn, k = 10)
-
+str(trn)
+# need ?
+trn$classes  <- as.factor(trn$classes)
+mod_knn = knn3(classes ~ ., data = trn, k = 2)
+mod_knn
 # make "predictions" with knn model
-new_obs = data.frame(x.1 = 2, x.2 = -2)
+new_obs = data.frame(x=.7, y = .7)
 
-# point is probably class 3
+# point is probably class 1 
 predict(mod_knn, new_obs, type = "prob")
 predict(mod_knn, new_obs, type = "class")
 
