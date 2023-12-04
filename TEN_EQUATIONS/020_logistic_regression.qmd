@@ -1,0 +1,35 @@
+
+---
+title: skeleton.qmd
+date: last-modified
+# Quarto requires title, if want date to appear
+---
+
+```{r}
+f  <- function(x) 1/(1+x)
+
+
+curve(f, from = 0, to=2, xlab="odds or return",
+ylab="P(win)",
+main = "Convert odds to Prob(win)")
+
+
+
+#
+#  To make money:
+#For very probable events, bookie will give slightly shorter odds
+# For less likely events,  bookie may offer slightly longer odds.
+```
+
+##  collect data for each event
+##  for odds bookie gave, plot frequency
+```{r}
+```
+
+## Use logistic regression to fit actual data
+```{r}
+```
+
+
+
+vim:linebreak:nospell:nowrap:cul tw=78 fo=tqlnrc foldcolumn=1 cc=+1 filetype=r
