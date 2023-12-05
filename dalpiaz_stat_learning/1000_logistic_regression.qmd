@@ -52,6 +52,17 @@ prob(a,b, x=943)
 result = cbind(prob(a,b, x=default_trn$balance), default_trn)
 head(result)
 
+## compare predict and my own calc
+comp  <- tibble(x=predict(model_glm, type="response"), 
+                y=prob(a, b, default_trn$balance))
+
+head(comp)
+```
+
+## Plot
+```{r}
+
+
 head(result, n=20)
 ## bingo !
 plot(result[[1]] ~ result$balance)
@@ -99,7 +110,13 @@ abline(v = -coef(model_glm)[1] / coef(model_glm)[2], lwd = 2)
 ```
 
 
-
+### Use Broom , given model, model_glm
+```{r}
+library(broom)
+broom::tidy(model_glm)
+broom::augment(model_glm)              # .fitted  is b+b1*x    
+broom::glance(model_glm)
+```
 
 
 

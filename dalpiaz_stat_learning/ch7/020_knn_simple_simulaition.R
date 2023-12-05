@@ -6,17 +6,14 @@ date: last-modified
 ---
 ### https://statisticallearning.org/nonparametric-classification.html
   ### Dalpiaz - Chapter 7 (generate data, from Chapter 7)
-```{r}
 library(mlbench)
 library(palmerpenguins)
 library(tidyverse)
 library(gridExtra)
 library(caret)
 library(data.table)
-```
 
 ### generate training/testing data
-```{r}
 # set seed
 set.seed(42)
 
@@ -46,9 +43,7 @@ tst  <- data[, .(.I, x, y, classes)][!I %in% trn_idx]
 trn  <-  trn[, .(x,y, classes)]
 
 
-```
 
-```{r, eval=F}
 # visualize data
 
 p1 = ggplot(data = trn, aes(x = x.1)) +
@@ -95,7 +90,6 @@ plot(x.2 ~ x.1, data = trn, col = classes, pch = 20, cex = 1.5)
 
 
 ### helper function to calculate misclassification
-```{r}
 calc_misclass = function(actual, predicted) {
   mean(actual != predicted)
 }
@@ -106,7 +100,6 @@ calc_misclass(
   actual = tst$classes,
   predicted = predict(mod_knn, tst, type = "class")
 )
-```
 
 ### simulate
 ```{r}
@@ -143,7 +136,6 @@ which(knn_misclass[min(knn_misclass)])
 # plot results
 plot(k_val, knn_misclass, pch = 20, type = "b")
 grid()
-```
 
 
 
