@@ -14,7 +14,7 @@ wines  <- read.csv("data/winequality-white.csv", comment.char="#", sep=";")
 dim(wines)
 (n <- nrow(wines)) # number of samples
 
-wines  <- as.tibble(wines)
+wines  <- as_tibble(wines)
 head(wines)
 names(wines)
 #  [1] "fixed.acidity"        "volatile.acidity"     "citric.acid"         
