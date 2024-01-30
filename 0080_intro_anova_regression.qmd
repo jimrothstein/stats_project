@@ -1,0 +1,73 @@
+
+---
+title: skeleton.qmd
+date: last-modified
+# Quarto requires title, if want date to appear
+# ~/.config/kickstart/skeleton/skeleton.qmd
+---
+#   TAGS:   
+
+https://www.crumplab.com/rstatsforpsych/multiple-regression-i.html#concept-i-t-tests-and-simple-regression
+
+### independent variable has 2 -levels 
+```{r}
+
+library(tibble)
+
+# levels are groups here
+simple_design <- tibble(group = rep(c(0,1), each=10),
+                        DV = c(1,3,2,4,3,4,5,6,5,4,5,4,3,2,3,4,5,6,8,9))
+simple_design
+```
+
+### histogam
+```{r}
+library(ggplot2)
+
+##  plot (1) the mean of each group (using stat = , fun = )
+##  AND (2) each individual point
+
+ggplot(simple_design, aes(x=group, y=DV))+
+  geom_bar(stat = "summary", fun = "mean", position="dodge")+
+  geom_point()
+```
+### t-test for 2 groups
+```{r}
+t.test(DV~group, var.equal=TRUE, data=simple_design)
+# Conclude means are NOT same;  not same population
+#> 
+#>  Two Sample t-test
+#> 
+#> data:  DV by group
+#> t = -1.412, df = 18, p-value = 0.175
+#> alternative hypothesis: true difference in means between group 0 and group 1 is not equal to 0
+#> 95 percent confidence interval:
+#>  -2.9854404  0.5854404
+#> sample estimates:
+#> mean in group 0 mean in group 1 
+#>             3.7             4.9
+```
+### now use regression, ("smooth") for the means
+```{r}
+ggplot(simple_design, aes(x=group, y=DV))+
+  geom_bar(stat = "summary", fun = "mean", position="dodge")+
+  geom_point()+
+  geom_smooth(method="lm", se=FALSE)
+```
+### summary
+```{r}
+summary(lm(DV~group, data=simple_design))
+#> 
+#> Call:
+#> lm(formula = DV ~ group, data = simple_design)
+#> 
+#> Coefficients:
+#> (Intercept)        group  
+#>         3.7          1.2
+
+```
+
+
+
+
+vim:linebreak:nospell:nowrap:cul tw=78 fo=tqlnrc foldcolumn=1 cc=+1
