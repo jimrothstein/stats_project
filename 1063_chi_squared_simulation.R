@@ -1,24 +1,3 @@
-<!3.  --
-	 vim:linebreak:nowrap:nospell:cul tw=78 fo=tqlnr foldcolumn=3 
--->
-
---- 
-title:  "`r knitr::current_input()`"
-date: "`r paste('last updated', 
-   format(lubridate::now(), ' %d %B %Y'))`"
-output: 
-  html_document:  
-    toc: true 
-    toc_depth:  2 
-    toc_float:  true   
-  pdf_document: 
-    toc: true 
-    toc_depth:  2 
-    latex_engine: xelatex
-    fontsize: 10pt 
-    geometry: margin=0.5in,top=0.25in 
----
-
 ## Use simulation to answer questions about squaring the normal distribution
 ## Show chi-squared
 
@@ -67,14 +46,19 @@ tinytex::reinstall_tinytex()
 ### Create sample of N(0,1)
 ```{r one}
 set.seed(2020)
-N  <- 1000 
+N  <- 10000
 x  <- rnorm(n = N, mean = 0, sd = 1)
 
-hist(x, main="Histogram of X, sample from N(0,1),
+# looks normal
+hist(x, main="Histogram of X, sample from N(0,1)",
         xlab= "Are 68% of counts between 0 and 1 sd?")
 
+# Ask, what is P(X < 1)
+# 84.1 - 16.9 = 67.2 %
+pnorm(q=1)   # 84.1%
+pnorm(q=-1)   # 16.9%
 
-
+# Looks chi-squared !   P(y < 1) approx 2/3
 y  <- x^2
 hist(y,  main = "Histogram of X^2")
 
@@ -90,7 +74,7 @@ hist(y,  main = "Histogram of X^2")
 ```
 
 $$\Y= \X_{1} + \X_{2}$$
-### Create more Xi
+### Create more Xi, with 7
 ```{r}
 
 
