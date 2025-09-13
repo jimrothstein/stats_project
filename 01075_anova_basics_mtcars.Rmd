@@ -48,14 +48,18 @@ data(cars)
 ```{r}
 # 02-quick look -----------------------------------------------------------
 
+# mpg v cyl
 mtcars %>% glimpse()
 str(mtcars)
-plot(mtcars$mpg, y = as.factor(mtcars$cyl), legend = levels(as.factor(mtcars$cyl)))
+plot(mtcars$mpg, y = as.factor(mtcars$cyl))
+z <- factor(mtcars$cyl)
+legend("topleft", legend = levels(z), col = 1:nlevels(z), pch=1,  title= "cyl")
 
 
+# mpg (hwy, cty) v drive 
 x <- jitter(mpg$hwy)
 y <- jitter(mpg$cty)
-z <- factor(mpg$drv)
+z <- factor(mpg$drv) # f r 4
 plot(x, y, col = z)
 legend("topleft", legend = levels(z), col = 1:nlevels(z), pch = 1, title = "Drive")
 ```
