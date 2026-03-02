@@ -1,0 +1,51 @@
+# REF https://bookdown.org/brianjmpark/everydayR/digression-i-gradient-descent-with-r.html
+
+
+```r
+# 500 obs for x, bet 0,1
+library(tidyverse)
+set.seed(123)
+theta_0 <- 5
+theta_1 <- 2
+n_obs <- 500
+x <- rnorm(n_obs)
+```
+
+
+```r
+# y = a1*x + a2 + random
+y <- theta_1*x + theta_0 + rnorm(n_obs, 0, 3)
+
+data <- tibble(x = x, y = y)
+
+ggplot(data, aes(x = x, y = y)) + 
+  geom_point(size = 2) + theme_bw() + 
+  labs(title = 'Simulated Data')
+```
+
+
+```r
+# goal:  given only the data, find coef  (~ 5, ~2 ...correct, high confid)
+ols <- lm(y ~ x, data = data)
+summary(ols)
+```
+
+Given ols, calc usual MLE
+```r
+rm(theta_0, theta_1)
+cost_function <- function(theta_0, theta_1, x, y){
+  pred <- theta_1*x + theta_0
+  res_sq <- (y - pred)^2
+  res_ss <- sum(res_sq)
+  return(mean(res_ss))
+}
+
+cost_function(theta_0 = ols$coefficients[1][[1]], 
+         theta_1 = ols$coefficients[2][[1]],
+         x = data$x, y = data$y)
+
+```
+
+Separately, use gradient descent to find coef 
+```r
+```
