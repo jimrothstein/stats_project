@@ -135,3 +135,15 @@ tune_res <- tune_grid(
 )
 
 tune_res
+| SourceSDTMColumn | TargetADaMColumn | TransformationType     | ConceptualPurpose                                                        |
+|------------------|------------------|------------------------|--------------------------------------------------------------------------|
+| PCORRES (Char)   | AVAL (Numeric)   | Type Cast / Imputation | Converts text strings to float values for math engines.                  |
+| PCTESTCD (Char)  | PARAMCD (Char)   | System-wide Remap      | Converts a lab test code to an analysis parameter code.                  |
+| PCDTC / EXSTDTC  | AFRLT (Numeric)  | Calculated Delta       | Computes Actual Relative Time from Analyte First Dose (tsample​−tdose​). |
+
+| SourceSDTMColumn | TargetADaMColumn | TransformationType | ConceptualPurpose |
+|---|---|---|---|
+|  PCORRES (Char)  |  AVAL (Numeric)  |  Type Cast / Imputation  |  Converts text strings to float values for math engines.  |
+|  PCTESTCD (Char)  |  PARAMCD (Char)  |  System-wide Remap  |  Converts a lab test code to an analysis parameter code.  |
+|  PCDTC / EXSTDTC  |  AFRLT (Numeric)  |  Calculated Delta  |  Computes Actual Relative Time from Analyte First Dose (tsample​−tdose​).  |
+
