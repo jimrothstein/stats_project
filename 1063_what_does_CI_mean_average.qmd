@@ -1,4 +1,13 @@
-
+---
+title: "
+format: 
+  html:
+    toc: true
+    html-math-method: katex
+editor: source
+editor_options: 
+  chunk_output_type: console
+---
 ---
 title: "030_quarto_katex_html_references.qmd"
 format: 
