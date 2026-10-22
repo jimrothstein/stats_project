@@ -1,0 +1,52 @@
+/home/jim/code/stats_project/gagolewski_ml/301_gagolewski_create_training_sets_KNN.qmd
+
+----------------------------------------------------------------------
+PURPOSE:	For wines db, create classification model for alcholol level (0 or 1)
+
+REF:   https://archive.ics.uci.edu/dataset/186/wine+quality
+Gagolewski:  KNN, chapter 3, classification
+https://lmlcr.gagolewski.com/classification-with-k-nearest-neighbours.html#k-nearest-neighbour-classifier
+----------------------------------------------------------------------
+
+Step 1:   Given a df, select a random sample of rows (for train/test)
+
+```{r classify-intro,echo=FALSE,fig.cap="A synthetic 2D dataset with the true decision boundary at $X_1=0$"}
+set.seed(123)
+n0 <- 50 # n0 points in class 0
+n1 <- 50 # n1 points in class 1
+Xs <- rbind(
+    cbind(rnorm(n0, -1, 1), rnorm(n0, 0, 1)), # N( (-1, 0), (1, 1) )
+    cbind(rnorm(n1, +1, 1), rnorm(n1, 0, 1))  # N( (+1, 0), (1, 1) )
+)
+Xs
+Ys <- factor(rep(c("0", "1"), c(n0, n1)))
+Ys
+plot(Xs[,1], Xs[,2], col=Ys, pch=c(1,2)[Ys], xlab="X1", ylab="X2", asp=1)
+legend("topleft", col=c(1,2), pch=c(1,2),
+    legend=c("Class 0", "Class 1"), bg="white")
+abline(v=0, lty=3, col="blue")
+```
+
+
+### Create 'region' 
+```{r plot-knn,echo=FALSE,cache=TRUE}
+plot_knn <- function(K) {
+    xx1 <- seq(-4, 4, length.out=250)
+    xx2 <- seq(-4, 4, length.out=250)
+    xx <- expand.grid(xx1, xx2)
+    yy <- FNN::knn(Xs, xx, Ys, k=K)
+    image(xx1, xx2, matrix(as.numeric(yy)-1, nrow=length(xx1), ncol=length(xx2)),
+          col=c("#00000044", "#ff000044"), xlab="X1", ylab="X2", asp=1)
+    points(Xs[,1], Xs[,2], col=Ys, pch=c(1,2)[Ys])
+    legend("topleft", col=c(1,2), pch=c(1,2),
+        legend=c("Class 0", "Class 1"), bg="white")
+    abline(v=0, lty=3, col="blue")
+}
+```
+
+
+
+```{r fig-plot-knn1,echo=FALSE,cache=TRUE,dependson='plot-knn',fig.cap="1-NN class bounds for our 2D synthetic dataset"}
+plot_knn(1)
+```
+

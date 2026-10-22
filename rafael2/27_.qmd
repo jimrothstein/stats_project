@@ -1,0 +1,25 @@
+```{r}
+library(dslabs)
+library(tidyverse)
+library(caret)
+
+# mnist_27 divided into train test
+mnist_27$train |> ggplot(aes(x_1, x_2, color = y)) + geom_point()
+``` 
+
+```{r}
+head(mnist_27$train)
+```
+
+```{r}
+library(data.table)
+mtcars
+x  <- as.data.table(mtcars)
+
+x[, `:=` (MPGAL ,  mpg),][, -c(1)] 
+x[, `:=` (MPGAL ,  mpg),]
+x
+x$mpg=NULL
+x
+```
+

@@ -1,0 +1,112 @@
+
+---                                    # 
+title: skeleton.qmd
+date: last-modified
+# Quarto requires title, if want date to appear
+---
+
+
+  Section 2.1 discusses goals of linear regression, find function
+ f that is `close` to y, and what `close` means.
+$$
+  Y = f(X) + \epsilon
+$$
+```{r}
+library(tibble)     # data frame printing
+library(dplyr)      # data manipulation
+library(knitr)      # creating tables
+library(kableExtra) # styling tables
+
+library(data.table)
+
+```
+
+#### enter his data
+```{r}
+s="
+-0.47 	-0.06
+-0.26 	1.72
+0.15 	1.39
+0.82 	0.68
+-0.60 	-0.27
+0.80 	1.55
+0.89 	0.76
+0.32 	-0.40
+0.26 	-1.85
+-0.88 	-1.85 
+"
+data = fread(s)
+data
+```
+
+#### create data:
+```{r, echo = FALSE}
+cubic_mean = function(x) {
+  1 - 2 * x - 3 * x ^ 2 + 5 * x ^ 3
+}
+```
+
+```{r, echo = FALSE}
+set.seed(1)
+gen_slr_data = function(sample_size = 100, mu) {
+  x = round(runif(n = sample_size, min = -1, max = 1), 2)
+  y = round(mu(x) + rnorm(n = sample_size), 2)
+  tibble(x, y)
+}
+```
+
+```{r, echo = FALSE}
+set.seed(1)
+sim_slr_data = gen_slr_data(sample_size = 10, mu = cubic_mean)
+
+```
+
+```{r, echo = FALSE}
+sim_slr_data %>% 
+  kable() %>% 
+  kable_styling(full_width = FALSE)
+```
+
+```{r, echo = FALSE}
+poly_mod_1 = lm(y ~ x, data = sim_slr_data)
+poly_mod_3 = lm(y ~ poly(x, degree = 3), data = sim_slr_data)
+poly_mod_9 = lm(y ~ poly(x, degree = 9), data = sim_slr_data)
+```
+
+Lets take a look at this visually.
+
+```{r, fig.height = 4, fig.width = 12, echo = FALSE}
+par(mfrow = c(1, 3))
+
+plot(sim_slr_data, pch = 20, col = "grey", cex = 2,
+     main = "Degree 1 Polynomial",
+     xlim = c(-1.1, 1.1), ylim = c(-2, 2))
+curve(cubic_mean(x), add = TRUE, lwd = 2, lty = 2)
+curve(predict(poly_mod_1, tibble(x = x)), 
+      col = "firebrick", lwd = 2, lty = 1, add = TRUE, n = 10000)
+grid()
+
+plot(sim_slr_data, pch = 20, col = "grey", cex = 2,
+     main = "Degree 3 Polynomial",
+     xlim = c(-1.1, 1.1), ylim = c(-2, 2))
+curve(cubic_mean(x), add = TRUE, lwd = 2, lty = 2)
+curve(predict(poly_mod_3, tibble(x = x)),
+      col = "dodgerblue", lwd = 2, lty = 1, add = TRUE, n = 10000)
+grid()
+
+plot(sim_slr_data, pch = 20, col = "grey", cex = 2,
+     main = "Degree 9 Polynomial",
+     xlim = c(-1.1, 1.1), ylim = c(-2, 2))
+curve(cubic_mean(x), add = TRUE, lwd = 2, lty = 2)
+curve(predict(poly_mod_9, tibble(x = x)),
+      col = "limegreen", lwd = 2, lty = 1, add = TRUE, n = 10000)
+grid()
+```
+```{r}
+model_matrix(poly_mod_1)
+```
+
+### NeXT - new data
+
+
+vim:linebreak:nospell:nowrap:cul tw=78 fo=tqlnrc foldcolumn=1 cc=+1 filetype=r

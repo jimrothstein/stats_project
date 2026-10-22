@@ -1,0 +1,1 @@
+/home/jim/code/docs/tech_notes/300_tech_notes.qmd

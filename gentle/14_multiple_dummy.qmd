@@ -1,0 +1,49 @@
+
+PURPOSE:   Models with multiple dummy (0 or 1) variables
+Ch14.3
+Dummy variables are 0, 1 (include or not include) and represent **categorical** variables against baseline (when 0)
+
+kronecker delta
+
+$$
+\delta
+$$
+
+```{r}
+library(data.table)
+rxntime = fread("rxntime.csv")
+```
+
+$$
+\delta = 
+$$
+$$
+y = \beta_{0} + \beta_{1}x_{1} + \beta_{2}x_{2} + \epsilon 
+$$
+
+$$
+y = \beta_{0} + \beta_{1} \delta_{1} + \beta_{2}\delta + \epsilon 
+$$
+
+```{r}
+rxntime[, .(PictureTarget.RT, FarAway, Littered)]
+```
+### coef
+```{r}
+games_model1 = lm(PictureTarget.RT ~ FarAway + Littered, data=rxntime)
+coef(games_model1) |>
+  round(0)
+
+```
+$$
+\hat{y} = 482 + 50x_{1} + 87x_{2}
+$$
+
+***
+
+```{r}
+#| eval: false
+#| include: false
+summary(games_model1)
+```
+

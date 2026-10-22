@@ -1,0 +1,52 @@
+- used:  quarto create project .   | then modified
+- could not isntall regtools (fortran erros)
+- so downloaded mlb.txt.gz and read in, 1015 records (text says 1035)
+```{r}
+library(data.table)
+players  <- read.csv("../data/mlb.txt", sep="")
+head(players)
+str(players)
+
+dt  <- as.data.table(players)
+
+# catchers
+catch  <- players[players$Position == "Catcher", ]
+catch
+```
+
+
+$$
+1.96*\frac{s}{\sqrt(n)}
+$$
+### t-test catch Weight
+```{r}
+
+t.test(catch$Weight)
+```
+
+#### Ch 14 - regression
+```{r}
+summary(lm(players$Weight ~ players$Height))
+
+```
+
+```{r}
+knitr::knit_exit()
+```
+
+
+```{r}
+  
+
+v = var(catch$Weight)
+v
+s = sqrt(v)
+s
+1.96*s/sqrt(length(catch))
+sd = sqrt(v/length(catch))
+sd # 5.95
+
+mean(catch$Weight) # 204
+
+```
+

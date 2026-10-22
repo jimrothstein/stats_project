@@ -1,0 +1,48 @@
+
+---
+title: Loose Leaf
+date: last-modified
+---
+TAGS:  caret, knn, mnist, Rafael
+
+caret:: not longer active (no longer on cran); but still popular!
+REF: http://rafalab.dfci.harvard.edu/dsbook-part-2/ml/cross-validation.html
+
+```{r}
+library(tidyverse)
+library(dslabs)
+library(caret)
+
+## test data with actual y= 2 or 7, and x1, x2 coordinates
+head(mnist_27$test)
+dim(mnist_27$test)
+
+##  plot test data
+mnist_27$test |> ggplot(aes(x_1, x_2, color = y)) +  geom_point()
+
+```
+
+
+### train
+```{r}
+
+## return object class knn3
+knn_fit <- knn3(y ~ ., data = mnist_27$train, k = 5)
+
+```
+### test
+```{r}
+# proportion (votes for 2 or 7)
+y_hat_knn <- predict(knn_fit, mnist_27$test, type = "prob")
+y_hat_knn
+
+# matrix, for each (datapoint)row, report probability of 2 and 7 class (2 or 7)
+y_hat_knn <- predict(knn_fit, mnist_27$test, type = "class")
+class(y_hat_knn)
+head(y_hat_knn)
+
+x = confusionMatrix(data = y_hat_knn, reference= mnist_27$test$y)$overall["Accuracy"]
+#> Accuracy 
+#>    0.815
+```
+
